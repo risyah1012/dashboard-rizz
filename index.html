@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Dashboard</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar / Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Risyah <span class="logo-highlight">Kasir</span></span>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" class="nav-link active" data-tab="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-tab="pesanan"><i class="fas fa-shopping-cart"></i> Kasir & Pesanan</a></li>
+                <li><a href="#" class="nav-link" data-tab="bahan"><i class="fas fa-boxes"></i> Bahan Baku</a></li>
+                <li><a href="#" class="nav-link" data-tab="karyawan"><i class="fas fa-user-tie"></i> Karyawan</a></li>
+                <li><a href="#" class="nav-link" data-tab="supplier"><i class="fas fa-truck"></i> Supplier</a></li>
+                <li><a href="#" class="nav-link" data-tab="riwayat"><i class="fas fa-history"></i> Riwayat</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="tab-content active-tab">
+            <div class="hero-section">
+                <h1><i class="fas fa-leaf"></i> Risyah Kasir</h1>
+                <p>Mengelola pesanan, bahan baku, karyawan & supplier</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-info">
+                        <h3>Pendapatan Hari Ini</h3>
+                        <p id="totalPendapatan">Rp 0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="stat-info">
+                        <h3>Total Pesanan</h3>
+                        <p id="totalPesanan">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-box"></i></div>
+                    <div class="stat-info">
+                        <h3>Bahan Baku</h3>
+                        <p id="totalBahan">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <h3>Karyawan</h3>
+                        <p id="totalKaryawan">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recent-section">
+                <div class="card">
+                    <h3><i class="fas fa-clock"></i> Pesanan Terbaru</h3>
+                    <div class="table-responsive">
+                        <table id="recentOrdersTable" class="data-table">
+                            <thead>
+                                <tr><th>ID Pesanan</th><th>Menu</th><th>Qty</th><th>Total</th><th>Kembalian</th><th>Waktu</th></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KASIR & PESANAN -->
+        <section id="pesanan" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-cash-register"></i> Kasir & Input Pesanan</h2>
+            </div>
+            
+            <div class="kasir-container">
+                <!-- Form Input Pesanan -->
+                <div class="kasir-form card">
+                    <h3><i class="fas fa-edit"></i> Form Pesanan</h3>
+                    <div class="form-group">
+                        <label>Nama Menu Salad</label>
+                        <input type="text" id="namaMenu" placeholder="Contoh: Salad Buah, Salad Sayur" value="Salad Buah">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Harga per pcs (Rp)</label>
+                            <input type="number" id="hargaPerPcs" placeholder="Harga" value="17000">
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah (Qty)</label>
+                            <input type="number" id="jumlah" placeholder="Jumlah" value="1" min="1">
+                        </div>
+                    </div>
+                    <div class="form-group highlight">
+                        <label>Total Harga <i class="fas fa-calculator"></i></label>
+                        <input type="text" id="totalHarga" readonly style="background:#e8f5e9; font-weight:bold; font-size:1.2rem;">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Uang Pelanggan (Rp)</label>
+                            <input type="text" id="uangBayar" placeholder="Masukkan uang pelanggan">
+                        </div>
+                        <div class="form-group">
+                            <label>Kembalian (Rp)</label>
+                            <input type="text" id="kembalian" readonly style="background:#e8f5e9;">
+                        </div>
+                    </div>
+                    <button class="btn-primary btn-large" id="simpanPesananBtn">
+                        <i class="fas fa-save"></i> Simpan Pesanan
+                    </button>
+                </div>
+
+                <!-- Daftar Pesanan Aktif -->
+                <div class="daftar-pesanan card">
+                    <h3><i class="fas fa-list"></i> Daftar Pesanan</h3>
+                    <div class="table-responsive">
+                        <table class="data-table" id="pesananTable">
+                            <thead>
+                                <tr><th>ID</th><th>Menu</th><th>Qty</th><th>Harga/pcs</th><th>Total</th><th>Aksi</th></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAHAN BAKU -->
+        <section id="bahan" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-box-open"></i> Inventaris Bahan</h2>
+                <button class="btn-primary" id="tambahBahanBtn"><i class="fas fa-plus"></i> Tambah Bahan</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="bahanTable">
+                    <thead>
+                        <tr><th>ID Bahan</th><th>Nama Bahan</th><th>Stok</th><th>Satuan</th><th>Harga (Rp)</th><th>Aksi</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- KARYAWAN -->
+        <section id="karyawan" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-id-badge"></i> Data Karyawan</h2>
+                <button class="btn-primary" id="tambahKaryawanBtn"><i class="fas fa-user-plus"></i> Tambah Karyawan</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="karyawanTable">
+                    <thead>
+                        <tr><th>ID</th><th>Nama</th><th>Jabatan</th><th>No Telepon</th><th>Aksi</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SUPPLIER -->
+        <section id="supplier" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-parachute-box"></i> Data Supplier</h2>
+                <button class="btn-primary" id="tambahSupplierBtn"><i class="fas fa-plus"></i> Tambah Supplier</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="supplierTable">
+                    <thead>
+                        <tr><th>ID Supplier</th><th>Nama Supplier</th><th>No Telepon</th><th>Alamat</th><th>Aksi</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- RIWAYAT PESANAN -->
+        <section id="riwayat" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-history"></i> Riwayat Transaksi</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="riwayatTable">
+                    <thead>
+                        <tr><th>ID Pesanan</th><th>Menu</th><th>Qty</th><th>Total</th><th>Bayar</th><th>Kembalian</th><th>Waktu</th><th>Aksi</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL UNTUK FORM -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
